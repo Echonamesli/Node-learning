@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            如果后端没有配置cors，这样一定是不成功的，存在跨域，因为vscode的html在网页上打开(open with live server)是自带服务器的('http://127.0.0.1:5500' )
+            也即从 'http://127.0.0.1:5500'  向'http://localhost:3000/api/aaa'请求内容 
+            Access to fetch at 'http://localhost:3000/api/aaa' from origin 'http://127.0.0.1:5500' has been 
+            blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+        */
+        fetch('http://localhost:3000/api/aaa').then(res => res.json()).then(res => console.log(res))
+    </script>
+</body>
+
+</html>

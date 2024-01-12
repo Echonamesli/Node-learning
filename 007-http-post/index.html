@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 
+        客户端通过node(服务端)向猫眼要数据，因为跨域是浏览器的问题，node服务器向别的服务器要数据没有跨域问题
+        vue/react中用node当代理服务器也是这个原理
+        */
+        fetch('http://localhost:3000/api/aaa')
+        .then(res => res.json())
+        .then(res => console.log(res))
+    </script>
+</body>
+
+</html>
