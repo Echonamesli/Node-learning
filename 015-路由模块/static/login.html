@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 请求静态资源 -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div>
+        <div>
+            用户名：
+            <input id="name"/>
+        </div>
+        <div>
+            密码：
+            <input type="password" id="password"/>
+        </div>
+        <div>
+            <button id="login">登录——发get请求</button>
+            <button id="loginpost">登录——发post请求</button>
+        </div>
+    </div>
+
+    <script>
+        var username = document.querySelector('#name')
+        var password = document.querySelector('#password')
+        var login = document.querySelector('#login')
+        var loginpost = document.querySelector('#loginpost')
+
+        // fetch发get和post请求
+        login.onclick = () => {
+            //console.log(username.value, password.value);
+            fetch(`/api/login?username=${username.value}&password=${password.value}`).then(res=>res.text())
+            .then(res=>{
+                console.log(res);
+            })
+        }
+        loginpost.onclick = () => {
+            fetch(`/api/loginpost`,{
+                method: 'POST',
+                body:JSON.stringify({
+                    username:username.value,
+                    password: password.value
+                }),
+                headers:{
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(res=>res.text())
+            .then(res=>{
+                console.log(res);
+            })
+        }
+    </script>
+</body>
+</html>
