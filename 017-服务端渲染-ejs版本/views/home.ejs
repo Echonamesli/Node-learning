@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    views的home.ejs页面
+    <%-include("./header.ejs",{isShowTile:true})%>
+
+    <h1><%= title%></h1> 
+    <ul>
+        <%for(var i=0; i < list.length; i++){ %>
+            <li><%= list[i]%></li>
+            <%}%>
+    </ul>
+    <!-- 右键查看网页源代码的时候，我是会显示出来的注释 -->
+    <%# 右键查看网页源代码的时候，我是不会显示出来的注释 %>
+    <div>最新消息: <%- myhtml%></div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 其实找的就是localhost:3000/css/home.css -->
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+     <h5>express生成器:1、npm i -g express-generator；  2、express myapp --view=ejs（指定为ejs版本，默认为jade版本） </h5>
+
+    <div class="title">欢迎来到home页面</div>
+    <ul class="list">
+
+    </ul>
+    <script>
+        // 以下是前后端分离（BSR）/  客户端渲染 ————本质：前端中组装页面
+        fetch("/home/list").then(res => res.json())
+            .then(res => {
+                console.log(res);
+                render(res)
+            })
+
+        function render(data) {
+            var list = data.map(item => `<li>${item}</li>`)
+            var oul = document.querySelector(".list")
+            oul.innerHTML = list.join("")
+        }
+    </script>
+</body>
+
+</html>

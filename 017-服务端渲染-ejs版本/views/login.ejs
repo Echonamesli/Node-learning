@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    views的login.ejs页面
+
+    <%-include("./header.ejs",{isShowTile:false})%>
+
+    <%#  
+        这是注释标签
+    %>
+
+    <form action="/login/validate" method="post">
+        <div>用户名:<input type="text" name="username"></div>
+        <div>密码:<input type="text" name="password"></div>
+        <div><input type="submit" value="登录"></div>
+    </form>
+
+
+</body>
+</html>
