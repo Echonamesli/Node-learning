@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>后台系统——用户管理业务</h1>
+  <button id="logout">退出登录</button>
+  <hr>
+  <div>
+    <div>用户名:<input id="username" /></div>
+    <div>密码:<input type="password" id="password" /></div>
+    <div>年龄:<input type="number" id="age" /></div>
+    <div><button id="register">添加用户</button></div>
+  </div>
+  <hr>
+  <div>
+    <button id="update">更新用户</button>
+  </div>
+  <hr>
+  <div>
+    <button id="deletee">删除用户</button>
+  </div>
+  <hr>
+  <table border="1px">
+    <thead>
+      <tr>
+        <td>id</td>
+        <td>用户名</td>
+        <td>密码</td>
+        <td>年龄</td>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+  <script>
+    //先获取数据库所有数据列表
+    fetch("/api/user?page=1&limit=4").then(res => res.json()).then(res => {
+      console.log(res);
+      if(res.ok===0){{
+          location.href ="/login"
+        }}
+      var tbody = document.querySelector("tbody")
+      tbody.innerHTML = res.map(item =>
+        `
+        <tr>
+          <td>${item._id}</td>
+          <td>${item.username}</td>
+          <td>${item.password}</td>
+          <td>${item.age}</td>
+        </tr>
+        `).join("")
+    })
+
+    var register = document.querySelector("#register")
+    var logout = document.querySelector("#logout")
+    var update = document.querySelector("#update")
+    var deletee = document.querySelector("#deletee")
+    var username = document.querySelector("#username")
+    var password = document.querySelector("#password")
+    var age = document.querySelector("#age")
+    register.onclick = () => {
+      console.log(username.value, password.value, age.value);
+      fetch("/api/user", {
+        method: 'POST',
+        body: JSON.stringify({
+          username: username.value,
+          password: password.value,
+          age: age.value
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => res.json()).then(res => {
+        console.log(res);
+        if(res.ok===0){{
+          location.href ="/login"
+        }}
+      })
+    }
+
+    update.onclick = () => {
+      fetch("/api/user/65a622e9992fb2106cf7af94", {
+        method: 'PUT',
+        body: JSON.stringify({
+          username: "改名字",
+          password: "改密码",
+          age: 1
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => res.json()).then(res => {
+        console.log(res);
+        if(res.ok===0){{
+          location.href ="/login"
+        }}
+      })
+    }
+
+    deletee.onclick = () => {
+      fetch("/api/user/65a62f843b5663f8425a7694", {
+        method: "DELETE"
+      }).then(res => res.json()).then(res => {
+        console.log(res);
+        if(res.ok===0){{
+          location.href ="/login"
+        }}
+      })
+    }
+
+    logout.onclick = () => {
+      fetch("/api/logout").then(res=>res.json()).then(res=>{
+        if(res.ok === 1){
+          location.href = "/login"
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>
