@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>聊天室</h1>
+    <script>
+        var ws = new WebSocket("ws://localhost:8080")
+        ws.onopen = () => {
+            console.log("open")
+        }
+        ws.onmessage = (evt) => {
+            console.log(evt.data)
+        }
+        //客户端给服务端发消息
+        //ws.send("1111111")
+    </script>
+</body>
+
+</html>

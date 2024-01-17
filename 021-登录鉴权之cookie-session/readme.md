@@ -107,9 +107,7 @@
             req.session.garbage = Date.now();  
             next();
         }else{
-            //ajax发给服务端的，服务端不能直接让ajax直接重定向，只能让ajax自己跳
-            //res.redirect("/login")  
-            //正确做法：如果是接口，就返回错误码；如果不是接口，就重定向
+            //如果是接口，就返回错误码；如果不是接口，就重定向
             req.url.includes("api")
             ?res.status(401).json({ok:0}):res.redirect("/login")
         }
@@ -122,3 +120,10 @@
             res.send({ok:1})
         })
         })
+
+
+# COOKIE-SESSION机制弊端
+  1） session存储问题：每个用户的登录信息都保存在服务器的session中，随着用户的增多，服务器开销会明显上升，存在数据库里会占用空间；
+  2） 只能在 web 场景下使用，如果是 APP 的情况，不能使用 cookie 的情况下就不能用了
+  3） 如果是分布式服务，需要考虑不同机器间 Session 的共享同步问题，实现方法可将session存储到数据库中或者redis中
+  4)  基于 cookie 的机制很容易被 CSRF
